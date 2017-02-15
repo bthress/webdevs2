@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NASA's Image of the Day!</title>
+        <style>
+            p, h1, h2 {font-family: lucida console; }
+            
+            h1 {text-shadow: 3px 3px #FFFFFF;
+            font-size: 50px; 
+            }
+            
+            #Header {text-align:center;}
+    
+            h2 {border-style:solid; border-color:black; color:#000080;}
+            
+            p {font-size:1.5em; line-height:1.5em; margin-left: 24px; color:#000080;}
+            
+            pre {font-size: 2em;}
+            
+            body {background-color: #40e0d0;}
+            
+            div {
+                background-color:#a6a47f; 
+                border: 2px solid black; 
+                border-radius: 8px;
+                min-height:75px;
+                padding:25px;
+            }
+            
+       
+        </style>
+    </head>
+    <body>
+    <h1 id= "Header">Nasa's Image Search!
+    <img src="https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png" width="150" height="75">
+    </h1>
+    
+    
+    <!-- div for instructions and form -->
+    <div id="form">
+        <p>
+            Enter a date (In YYYY - MM - DD) below to view some images. (You can't use K758956 for testing.)
+            [Oldest date is June 16, 1995]
+            
+        </p>
+   
+        <input id="txtSearch" type="text" placeholder="Enter year here"></input>
+        <input id="txtSearch2" type = "text" placeholder="Enter month here"></input>
+        <input id="txtSearch3" type="text" placeholder="Enter day here"></input>
+        <button type="button" id="btnSearch" >Find some images!</button>
+    </div>
+    
+    <!-- a div to store the results -->
+    <div id="results">
+   <p>    We (Alexis S. And Brandon T.) are a pair of memelords who tried to make an image search. </p>
+        
+    </div>
+    
+<!-- The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    /*global $*/
+     var NASAdata;
+  $(function()
+      { 
+          var baseurl = "https://api.nasa.gov/planetary/apod";
+          
+          var url = baseurl + "?api_key=" + "rdyfOXBmOj7FMOWIbJWRpVQDvarKX03iU6ROL6yJ";
+          
+          console.log(url);
+         $("#btnSearch").on("click", function(){
+             
+             $("#results").html("");
+             var searchTerm = $("#txtSearch").val();
+             var searchTerm2 = $("#txtSearch2").val();
+             var searchTerm3 = $("#txtSearch3").val();
+             
+             var searchUrl = url + "&date=" + searchTerm + "-" + searchTerm2 + "-" + searchTerm3;
+             
+             console.log(searchUrl);
+             
+             
+                       $.getJSON(searchUrl)
+                    .done(function(data){
+                        console.log(data);
+                      
+                            var html = "<h1>"
+                            + String(data.title)
+                            + "<br>"
+                            + "<img src='"
+                            + String(data.url) 
+                            + "'>"
+                            + "</h1>"
+                            + "<br>"
+                            + "<h2>"
+                            + String(data.explanation)
+                            + "<br>"
+                            + "<a href=\"https://www.youtube.com/watch?v=PfYnvDL0Qcw\">Dank memes</a>"
+                            + "</h2>";
+                            
+                           console.log(html);
+                            $("#results").append(html);
+                
+                        
+                    console.log(data);  
+                    NASAdata = data;
+                        });
+                 }
+             
+         
+         );
+       
+        });
+  
+    </script>
+    </body>
+</html>
