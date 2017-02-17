@@ -30,11 +30,9 @@
         var options = {
           title: 'Remember the Name',
           is3D: true,
-          slices: {  3: {offset: 0.2},
-          },
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        var chart = new google.visualization.BarChart(document.getElementById('piechart_3d'));
         chart.draw(data, options);
       }
     </script>
