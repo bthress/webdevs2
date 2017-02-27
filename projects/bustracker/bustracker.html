@@ -32,7 +32,7 @@
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
                 
-                var html = "Route #" + "80" + ", " + v.prdctdn + "minutes<br>"
+                var html = "Route #" + "80 " + v.rtdir + ", " + v.prdctdn + " minutes<br>"
                   $("body").append(html);
                 
               });
