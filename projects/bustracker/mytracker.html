@@ -6,48 +6,36 @@
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-  <select id="route">
-    <option value="nothing">Select Route</option>
-    <option value="8417">Northbound Western</option>
-    <option value="8195">Southbound Western</option>
-    <option value="12527">Eastbound Addison</option>
-    <option value="12569">Westbound Addison</option>
-  </select>
-  <button type="button" id="btnSearch" >Find Bus Routes!</button>
+
  
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script>
       /*global $*/
         $(function() {
           
-          var trackerUrl = "http://ctabustracker.com/bustime/api/v2/getpredictions?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
+          var trackerUrl = "http://ctabustracker.com/bustime/api/v2/getpredictions?key=mvrnAfA7MQn7qiAVHBEcymRvX&rt=80&stpid=5691&format=json"
           var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
           
-         // var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
-         $("#btnSearch").on("click", function(){
-             
-             $("#results").html("");
-            var stopId = $("#route").val();
-            $.ajax({
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
+          console.log(apiEndpoint)
+          
+          $.ajax({
               url: apiPassThruUrl,
               dataType: "json",
               method: 'GET',
               data: {"apiEndpoint": trackerUrl,
                       "key" : "mvrnAfA7MQn7qiAVHBEcymRvX",
-                      "format":"json",
-                      "stpid" : stopId
-              }
+                      "format":"json"}
             }).done (function (data) {
               console.log(data);
               $("body").append("<h1>Bus Routes</h1>");
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
                 
-                var html = "Route #" + " " + v.rtdir + ", " + v.prdctdn + " minutes<br>"
+                var html = "Route #" + "80 " + v.rtdir + ", " + v.prdctdn + " minutes<br>"
                   $("body").append(html);
                 
               });
-
             });
         });
             
