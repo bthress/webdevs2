@@ -60,7 +60,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
     /*global $*/
-     var NASAdata;
   $(function()
       { 
           var baseurl = "https://api.nasa.gov/planetary/apod";
@@ -102,8 +101,7 @@
                             $("#results").append(html);
                 
                         
-                    console.log(data);  
-                    NASAdata = data;
+                    console.log(data);
                         });
                  }
              

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>jQuery.parseXML demo</title>
+  <title>Lane Tech CTA Bus Tracker</title>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
@@ -39,11 +39,11 @@
               }
             }).done (function (data) {
               console.log(data);
-              $("body").append("<h1>Bus Routes</h1>");
+              $("body").append("<h1>Bus Routes at Addison + Western</h1>");
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
                 
-                var html = "Route #" + " " + v.rtdir + ", " + v.prdctdn + " minutes<br>"
+                var html = "Route #" + v.rt + " " + v.rtdir + ", " + v.prdctdn + " minutes<br>";
                   $("body").append(html);
                 
               });
@@ -51,7 +51,7 @@
             });
         });
             
-  
+        });
 </script>
  
 </body>
