@@ -4,13 +4,26 @@
   <meta charset="utf-8">
   <title>Lane Tech CTA Bus Tracker</title>
   <style>
+    body {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: #000080;
+      color: #33ff00;
+    }
     h1 {
-      color: #CC3300;
+      font-size: 50px;
+    }
+    #results {
+      border-style: solid;
+      border-width: 3px;
+      border-color: #990066;
+      font-size: 30px;
+      background-color: #990066;
     }
   </style>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+  <h1>Bus Routes at Addison and Western</h1>
   <select id="route">
     <option value="nothing">Select Route</option>
     <option value="8417">Northbound Western</option>
@@ -19,6 +32,8 @@
     <option value="12569">Westbound Addison</option>
   </select>
   <button type="button" id="btnSearch" >Find Bus Routes!</button>
+  
+  <div id="trackerResults"></div>
  
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script>
@@ -44,12 +59,11 @@
               }
             }).done (function (data) {
               console.log(data);
-              $("body").append("<h1>Bus Routes at Addison + Western</h1>");
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
                 
-                var html = "Route #" + v.rt + " " + v.rtdir + ", " + v.prdctdn + " minutes<br>";
-                  $("body").append(html);
+                var html = "<div id=\"results\">" + "Route " + v.rt + " " + v.rtdir + " in " + v.prdctdn + " minutes<br>" + "</div>";
+                  $("#trackerResults").append(html);
                 
               });
 
