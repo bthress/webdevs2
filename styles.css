@@ -8,12 +8,14 @@
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+          background-color: #cfffcf;
 }
 
 .mdl-layout__title {
-  font-size: 14px;
+  font-size: 24px;
   text-align: center;
   font-weight: 300;
+  color: black;
 }
 
 .is-compact .mdl-layout__title span {
@@ -168,3 +170,6 @@ footer {
   background-size: cover;
 }
 
+.mdl-mini-footer {
+  background-color: #1e52a2;
+}
