@@ -55,7 +55,7 @@
          // var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
          $("#btnSearch").on("click", function(){
              
-             $("#results").html("");
+             $("#trackerResults").html("");
             var stopId = $("#route").val();
             $.ajax({
               url: apiPassThruUrl,
