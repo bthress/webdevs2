@@ -35,11 +35,11 @@
         <div id="screen1" class="screen page-content">
           <h1>Screen 1</h1>
           <select id="stopId">
-             <option>Select Stop + Direction</option>
-             <option>Irving Park to Clark + Lake</option>
-             <option>Irving Park to Cumberland</option>
-             <option>Clark + Lake to Irving Park</option>
-             <option>Cumberland to Irving Park</option>
+             <option value="">Select Stop + Direction</option>
+             <option value="30108">Irving Park to Clark + Lake</option>
+             <option value="30107">Irving Park to Cumberland</option>
+             <option value="30375">Clark + Lake to Irving Park</option>
+             <option value="30045">Cumberland to Irving Park</option>
           </select>
           <button type="button" id="btnSearch">Find Times</button>
         </div>
@@ -54,13 +54,29 @@
       $(function() {
         $("#screen1").show();
         
-        var trackerUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=8c4f4d99574f4cdd86a8cc71004a3a58&max=1&mapid=40550&outputType=JSON";
+        var trackerUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?";
         var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
         
         $("#btnSearch").on("click", function(){
-          
+          $("#screen2").html("");
+          var routeId = $("#stopId").val();
+            $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": trackerUrl,
+                      "key" : "8c4f4d99574f4cdd86a8cc71004a3a58",
+                      "outputType":"JSON",
+                      "stpid" : routeId,
+                      "max": "3",
+              }}).done (function (data) {
+              console.log(data);
+              
+              $.each(data, function(i,v) {
+                var routeData = "<p>Route " + v.
         
         $("#link1").on("click", function(){
+          
           $(".screen").hide();
           $("#screen1").show();
         });
@@ -73,6 +89,9 @@
         $("#link3").on("click", function(){
           $(".screen").hide();
           $("#screen3").show();
+        });
+      });
+      });
         });
       });
       
