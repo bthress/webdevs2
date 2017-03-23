@@ -54,7 +54,7 @@
       $(function() {
         $("#screen1").show();
         
-        var trackerUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?";
+        var trackerUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx";
         var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
         
         $("#btnSearch").on("click", function(){
@@ -68,12 +68,13 @@
                       "key" : "8c4f4d99574f4cdd86a8cc71004a3a58",
                       "outputType":"JSON",
                       "stpid" : routeId,
-                      "max": "3",
+                      "max": "3"
               }}).done (function (data) {
               console.log(data);
               
-              $.each(data, function(i,v) {
-                var routeData = "<p>Route " + v.
+              $.each(data["ctatt"]["eta"], function(i,v) {
+                var routeData = v.rt + " line train coming at " + v.prdt;
+                $("#screen2").append(routeData);
         
         $("#link1").on("click", function(){
           
@@ -94,6 +95,7 @@
       });
         });
       });
+      //https://codelabs.developers.google.com/codelabs/add-to-home-screen/index.html#5
       
     </script>
   </body>
