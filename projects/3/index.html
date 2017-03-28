@@ -3,6 +3,7 @@
   <head>
     <!-- Material Design Lite -->
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <title>CTA Train Tracker</title>
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <!-- Material Design icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -55,21 +56,28 @@
         $("#screen1").show();
         
         var trackerUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx";
-        var apiPassThruUrl = "https://ide.c9.io/bthress/webdevs2-17";
+        var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
         
         $("#btnSearch").on("click", function(){
-           $("#screen2").html("");
-           var searchUrl = trackerUrl + "?key=8c4f4d99574f4cdd86a8cc71004a3a58&max=3&stpid=" + $("#stopId").val() + "&outputType=JSON";
-           console.log(searchUrl);
-           $.getJSON(searchUrl)
-              .done (function (data) {
+          $("#screen2").html("");
+            $.ajax({
+              url: apiPassThruUrl,
+              dataType: "JSON",
+              method: 'get',
+              data: {"apiEndpoint": trackerUrl,
+                      "key" : "8c4f4d99574f4cdd86a8cc71004a3a58",
+                      "outputType":"JSON",
+                      "stpid" : $("#stopId").val(),
+                      "max": "3"
+              }}).done (function (data) {
               console.log(data);
               
               $.each(data["ctatt"]["eta"], function(i,v) {
                 var routeData = v.rt + " line train coming at " + v.prdt;
                 $("#screen2").append(routeData);
               });
-        
+            });
+           });
         $("#link1").on("click", function(){
           
           $(".screen").hide();
@@ -87,21 +95,9 @@
         });
      
       //https://codelabs.developers.google.com/codelabs/add-to-home-screen/index.html#5
-              });
-                });
+              
         
       });
     </script>
   </body>
 </html>
-$("#btnSearch").on("click", function(){
-          $("#screen2").html("");
-            $.ajax({
-              url: apiPassThruUrl,
-              dataType: "json",
-              method: 'GET',
-              data: {"apiEndpoint": trackerUrl,
-                      "key" : "8c4f4d99574f4cdd86a8cc71004a3a58",
-                      "outputType":"JSON",
-                      "stpid" : $("#stopId").val(),
-                      "max": "3"
