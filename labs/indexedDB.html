@@ -39,7 +39,7 @@
                     <label class="mdl-textfield__label" for="search">Enter part of a name</label>
                   </div>
                 </div>
-              <button id="btnShow">Show</button>
+              <button id="btnShow">Search</button>
               <!-- Your content goes here --></div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -64,7 +64,6 @@
             });
            db.employees.count().then(function(count){
                 console.log(count);
-               // only if the table is empty do we need to grab the city employee data
                if (count == 0) {
                    var endpoint = 'https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL';
                    
