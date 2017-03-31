@@ -40,7 +40,32 @@
                   </div>
                 </div>
               <button id="btnShow">Search</button>
-              <!-- Your content goes here --></div>
+              <div id="results"></div>
+              <form id="employeeName" action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="sample1">
+                  <label class="mdl-textfield__label" for="sample1">Name</label>
+                </div>
+              </form>
+              <form id="employeeJob" action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="sample1">
+                  <label class="mdl-textfield__label" for="sample1">Job</label>
+                </div>
+              </form>
+              <form id="employeeDept" action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="sample1">
+                  <label class="mdl-textfield__label" for="sample1">Dept</label>
+                </div>
+             </form>
+              <form id="employeeSalary" action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="sample1">
+                  <label class="mdl-textfield__label" for="sample1">Salary</label>
+                </div>
+              </form>
+              <button id="addStuff">Add a person to dis database</button>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
           <div class="page-content"><!-- Your content goes here --></div>
@@ -83,14 +108,23 @@
             displayEmployees($("#search").val());
         });
         function displayEmployees(strQuery) {
+          $("#results").html("");
             console.log(strQuery);
             db.employees.where("name").startsWith(strQuery).each(function (employee) {
                 var html = "<strong>" + employee.name + "</strong>";
                 html += "<br>" + employee.department + "<br><br>";
                 
-                $("#display").append(html);
+                $("#results").append(html);
             });
         }
+        $("#addStuff").on("click", function() {
+          db.employees.add({
+		        name: $("#employeeName").val(),
+		        job: $("#employeeJob").val(),
+		        department: $("#employeeDept").val(),
+		        salary: $("#employeeSalary").val()
+	        });
+        });
     </script>
   </body>
 </html>
