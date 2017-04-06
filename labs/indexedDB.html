@@ -41,7 +41,11 @@
                 </div>
               <button id="btnShow">Search</button>
               <div id="results"></div>
-              <form id="employeeName" action="#">
+              
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+          <div class="page-content">
+            <form id="employeeName" action="#">
                 <div class="mdl-textfield mdl-js-textfield">
                   <input class="mdl-textfield__input" type="text" id="sample1">
                   <label class="mdl-textfield__label" for="sample1">Name</label>
@@ -65,10 +69,8 @@
                   <label class="mdl-textfield__label" for="sample1">Salary</label>
                 </div>
               </form>
-              <button id="addStuff">Add a person to dis database</button>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-          <div class="page-content"><!-- Your content goes here --></div>
+            <button id="addStuff">Add a person to dis database</button>
+          </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
           <div class="page-content"><!-- Your content goes here --></div>
@@ -96,7 +98,12 @@
                         .done(function(data) {
                             
                             $.each(data, function(i,v) {
-                               db.employees.add({name: v.name, title: v.job_titles, salary: v.employee_annual_salary, department: v.department});
+                               db.employees.add({
+                                 name: v.name, 
+                                 title: v.job_titles, 
+                                 salary: v.employee_annual_salary, 
+                                 department: v.department
+                               });
                             });
                             
                             console.log(data);
@@ -113,18 +120,23 @@
             db.employees.where("name").startsWith(strQuery).each(function (employee) {
                 var html = "<strong>" + employee.name + "</strong>";
                 html += "<br>" + employee.department + "<br><br>";
-                
+            
                 $("#results").append(html);
             });
         }
-        $("#addStuff").on("click", function() {
+        $("#addStuff").on("click", function(i,v) {
+          var employeeName = $("#employeeName").val();
+          var employeeJob = $("#employeeJob").val();
+          var employeeSalary = $("#employeeSalary").val();
+          var employeeDept = $("#employeeDept").val();
           db.employees.add({
-		        name: $("#employeeName").val(),
-		        job: $("#employeeJob").val(),
-		        department: $("#employeeDept").val(),
-		        salary: $("#employeeSalary").val()
+            name: employeeName, 
+            title: employeeJob, 
+            salary: employeeSalary, 
+            department: employeeDept
+          });
+          console.log(db.employees);
 	        });
-        });
     </script>
   </body>
 </html>
