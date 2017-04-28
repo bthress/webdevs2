@@ -17,7 +17,7 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-          <a href="#fixed-tab-1" class="mdl-layout__tab">Tab 1</a>
+          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
           <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
           <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
         </div>
@@ -26,7 +26,7 @@
         <span class="mdl-layout-title">Title</span>
       </div>
       <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel" id="fixed-tab-1">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
           <div id="screen1" class="page-content">
             <h1>Bus Routes at Addison and Western</h1>
             <select id="route">
@@ -54,14 +54,14 @@
     <script>
       /*global $*/
         $(function() {
+          $("#screen1").show();
           
           var trackerUrl = "http://ctabustracker.com/bustime/api/v2/getpredictions?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
           var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
           
          // var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
          $("#btnSearch").on("click", function(){
-             $(".screen").hide();
-             $("#screen2").show();
+             
              $("#trackerResults").html("");
             var stopId = $("#route").val();
             $.ajax({
@@ -80,7 +80,7 @@
                 
                 var html = "<div id=\"results\">" + "Route " + v.rt + " " + v.rtdir + " in " + v.prdctdn + " minutes<br>" + "</div>";
                   $("#trackerResults").append(html);
-                
+                  
               });
 
             });
