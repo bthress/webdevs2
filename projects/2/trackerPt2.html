@@ -17,9 +17,9 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
-          <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
-          <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
+          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Bus tracker requests</a>
+          <a href="#fixed-tab-2" class="mdl-layout__tab">Bus tracker results</a>
+          <a href="#fixed-tab-3" class="mdl-layout__tab">Add your own tracker</a>
         </div>
       </header>
       <div class="mdl-layout__drawer">
@@ -31,10 +31,10 @@
             <h1>Bus Routes at Addison and Western</h1>
             <select id="route">
               <option value="nothing">Select Route</option>
-              <option value="8417">Northbound Western</option>
-              <option value="8195">Southbound Western</option>
-              <option value="12527">Eastbound Addison</option>
-              <option value="12569">Westbound Addison</option>
+              <option value="8417">Northbound 49 from Addison</option>
+              <option value="8195">Southbound 49 from Addison</option>
+              <option value="12527">Eastbound 152 from Western</option>
+              <option value="12569">Westbound 152 from Western</option>
             </select>
             <button type="button" id="btnSearch" >Find Bus Routes!</button>
           </div>
@@ -46,6 +46,21 @@
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
           <div id="screen3" class="page-content">
+            <input type="text" placeholder="Stop #">
+            <br>
+            <input type="text" placeholder="Route number">
+            <br>
+            <select id="selectDir">
+              <option value="nothing">Direction</option>
+              <option value="Northbound">North</option>
+              <option value="Southbound">South</option>
+              <option value="Eastbound">East</option>
+              <option value="Westbound">West</option>
+            </select>
+            <br>
+            <input type="text" placeholder="Stop name">
+            <br>
+            <button type="button" id="addRoute">Add a route!</button>
           </div>
         </section>
       </main>
