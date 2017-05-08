@@ -46,11 +46,11 @@
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
           <div id="screen3" class="page-content">
-            <input type="text" placeholder="Stop #">
+            <input id="input_stpid" type="text" placeholder="Stop #">
             <br>
-            <input type="text" placeholder="Route number">
+            <input id="input_rtnum" type="text" placeholder="Route number">
             <br>
-            <select id="selectDir">
+            <select id="input_dir">
               <option value="nothing">Direction</option>
               <option value="Northbound">North</option>
               <option value="Southbound">South</option>
@@ -58,7 +58,7 @@
               <option value="Westbound">West</option>
             </select>
             <br>
-            <input type="text" placeholder="Stop name">
+            <input id="input_stpname" type="text" placeholder="Stop name">
             <br>
             <button type="button" id="addRoute">Add a route!</button>
           </div>
@@ -100,7 +100,10 @@
 
             });
         });
-            
+            $("#addRoute").on("click", function() {
+              var newRoute = "<option value=\"" + $("input_stpid") + "\">" + $("input_dir").val() + " " + $("input_rtnum") + " from " + $("input_stpname") + "</option>";
+              $("#route").append(newRoute);
+            });
         });
     </script>
   </body>
