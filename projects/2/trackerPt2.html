@@ -46,21 +46,8 @@
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
           <div id="screen3" class="page-content">
-            <input id="input_stpid" type="text" placeholder="Stop #">
-            <br>
-            <input id="input_rtnum" type="text" placeholder="Route number">
-            <br>
-            <select id="input_dir">
-              <option value="nothing">Direction</option>
-              <option value="Northbound">North</option>
-              <option value="Southbound">South</option>
-              <option value="Eastbound">East</option>
-              <option value="Westbound">West</option>
-            </select>
-            <br>
-            <input id="input_stpname" type="text" placeholder="Stop name">
-            <br>
-            <button type="button" id="addRoute">Add a route!</button>
+            <select id="routes"></select>
+            <select id="directions"></select>
           </div>
         </section>
       </main>
@@ -74,12 +61,12 @@
           var trackerUrl = "http://ctabustracker.com/bustime/api/v2/getpredictions?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
           var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
           
-         // var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes?key=mvrnAfA7MQn7qiAVHBEcymRvX&format=json";
          $("#btnSearch").on("click", function(){
              
-             $("#trackerResults").html("");
+             $("#trackerResults").html(""); //clear tracker results
             var stopId = $("#route").val();
-            $.ajax({
+            //ajax call
+            $.ajax({ 
               url: apiPassThruUrl,
               dataType: "json",
               method: 'GET',
@@ -89,22 +76,59 @@
                       "stpid" : stopId
               }
             }).done (function (data) {
+              //gets data
               console.log(data);
-             
+             //gets data for bus times
               $.each(data["bustime-response"]["prd"], function(i,v) {
-                
+                //defines variable for bus times, appends to screen 2
                 var html = "<div id=\"results\">" + "Route " + v.rt + " " + v.rtdir + " in " + v.prdctdn + " minutes<br>" + "</div>";
                   $("#trackerResults").append(html);
-                  
               });
+            });
+          });
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes";
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "mvrnAfA7MQn7qiAVHBEcymRvX",
+                      "format":"json"}
+            }).done (function (data) {
+             
+             $.each(data["bustime-response"]["routes"], function(i,v) {
+                  var option = $("<option>");   // creates an option element
+                  option.attr("value", v.rt );   // set value
+                  option.text(v.rt + " - " + v.rtnm);  // set text
+                  $("#routes").append(option);   // add option to select control
+              });
+            });
+          $("#routes").on("change", function() {
+              var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getdirections";
 
-            });
-        });
-            $("#addRoute").on("click", function() {
-              var newRoute = "<option value=\"" + $("input_stpid") + "\">" + $("input_dir").val() + " " + $("input_rtnum") + " from " + $("input_stpname") + "</option>";
-              $("#route").append(newRoute);
-            });
-        });
+            $.ajax({
+                url: apiPassThruUrl,
+                dataType: "json",
+                method: 'GET',
+                data: {"apiEndpoint": apiEndpoint,
+                        "key" : "mvrnAfA7MQn7qiAVHBEcymRvX",
+                        "format":"json",
+                        "rt": $("#routes").val()
+                }
+              }).done (function (data) {
+                
+               $("#directions option").remove();
+               
+               $.each(data["bustime-response"]["directions"], function(i,v) {
+                    var option = $("<option>");   // creates an option element
+                    option.attr("value", v.dir );   // set value
+                    option.text(v.dir);  // set text
+                    $("#directions").append(option);   // add option to select control
+                });
+            });            
+           });
+           
+         });
     </script>
   </body>
 </html>
