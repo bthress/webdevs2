@@ -52,9 +52,27 @@
         </section>
       </main>
     </div>
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
       /*global $*/
+      /*global Dexie*/
+      
+      var db = new Dexie('StopDatabase');
+      db.version(1).stores({
+		    stops: '++id, rt, rtnm, dir, stpid, stpnm'
+	    });
+	    db.open().catch(function(error) {
+		    alert('Uh oh : ' + error);
+	    });
+	    db.stops.add({
+		    rt: 'Irving Park',
+		    rtnm: '80',
+		    dir: 'Eastbound',
+		    stpid: '5640',
+		    stpnm: 'Irving Park + Hamlin'
+	    });
+	    
         $(function() {
           $("#screen1").show();
           
