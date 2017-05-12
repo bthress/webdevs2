@@ -48,6 +48,7 @@
           <div id="screen3" class="page-content">
             <select id="routes"></select>
             <select id="directions"></select>
+            <select id="stops"></select>
           </div>
         </section>
       </main>
@@ -142,6 +143,33 @@
                     option.attr("value", v.dir );   // set value
                     option.text(v.dir);  // set text
                     $("#directions").append(option);   // add option to select control
+                });
+            });            
+           });
+           $("#directions").on("change", function() {
+              var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getstops";
+
+            $.ajax({
+                url: apiPassThruUrl,
+                dataType: "json",
+                method: 'GET',
+                data: {"apiEndpoint": apiEndpoint,
+                        "key" : "mvrnAfA7MQn7qiAVHBEcymRvX",
+                        "format":"json",
+                        "rt": $("#routes").val(),
+                        "dir": $("#directions").val()
+                }
+              }).done (function (data) {
+                
+               $("#stops option").remove();
+               
+               $.each(data["bustime-response"]["stops"], function(i,v) {
+                    var option = $("<option>");   // creates an option element
+                    option.attr("value", v.stpnm );   // set value
+                    option.text(v.stpnm);  // set text
+                    //option.attr("value", v.stpid );   //set value
+                    //option.text( v.stpid);  //set text
+                    $("#stops").append(option);   // add option to select control
                 });
             });            
            });
