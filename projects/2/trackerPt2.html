@@ -49,6 +49,7 @@
             <select id="routes"></select>
             <select id="directions"></select>
             <select id="stops"></select>
+            <button id="addRoutes">Add a route</button>
           </div>
         </section>
       </main>
@@ -167,11 +168,12 @@
                     var option = $("<option>");   // creates an option element
                     option.attr("value", v.stpnm );   // set value
                     option.text(v.stpnm);  // set text
-                    //option.attr("value", v.stpid );   //set value
-                    //option.text( v.stpid);  //set text
                     $("#stops").append(option);   // add option to select control
                 });
             });            
+           });
+           $("#addRoutes").on("click", function(){
+             
            });
            
          });
