@@ -16,11 +16,37 @@
         <script>
             var canvas = document.querySelector("#myCanvas");
             var context = canvas.getContext("2d");
+            context.beginPath();
             context.moveTo(160, 130);
             context.lineTo(75, 200);
             context.lineTo(150, 275);
             context.lineTo(250, 230);
             context.closePath();
+             
+            context.lineWidth = 5;
+            context.strokeStyle = "#333";
+            context.fillStyle = "#FFCC00";
+             
+            context.fill();
+            context.stroke();
+             
+            context.beginPath();
+            context.moveTo(50, 50);
+            context.lineTo(450, 300);
+            context.closePath();
+             
+            context.lineWidth = 45;
+            context.strokeStyle = "steelblue";
+             
+            context.stroke();
+            
+            context.beginPath();
+            context.arc(200, 200, 93, 0, 2 * Math.PI, true);
+            context.fillStyle = '#E2FFC6';
+            context.fill();
+             
+            context.lineWidth = 20;
+            context.strokeStyle = '#66CC01';
             context.stroke();
         </script>
  
