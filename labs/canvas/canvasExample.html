@@ -11,19 +11,33 @@
     </head>
  
     <body>
-        <canvas id="myCanvas" width="550px" height="350px"></canvas>
+        <canvas id="myCanvas" width="550px" height="350px">Error 404: Your canvas ain't here.</canvas>
  
         <script>
             var canvas = document.querySelector("#myCanvas");
             var context = canvas.getContext("2d");
- 
-            context.font = "96px Comic Sans MS, cursive, sans-serif";
- 
-            context.fillStyle = "steelblue";
-            context.fillText("Canvas!", 40, 125);
- 
-            context.strokeStyle = "#173b79";
-            context.strokeText("Canvas!", 40, 275);
+            var x = 10, y = 100;
+            var direction = 1;
+            function draw() {
+                context.clearRect(0,0,canvas.width,canvas.height);
+                context.font = "40px Comic Sans MS, cursive, sans-serif";
+                
+                context.beginPath();
+                context.fillStyle = "steelblue";
+                context.fillText("Subscribe to Gooberdude2", x, y);
+                if (y >= (canvas.width)) {
+                    direction = -3;
+                } 
+                else if (y <= 10){
+                    direction = 3;
+                }
+                
+                
+                y = y + direction;
+                
+                window.requestAnimationFrame(draw);
+            }
+            window.requestAnimationFrame(draw);
         </script>
  
     </body>
