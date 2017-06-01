@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+      canvas {
+        border:1px solid #d3d3d3;
+        background-color: #f1f1f1;
+      }
+      #myCharacter {
+        display: none;
+        width: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="480" height="270">Sorry m8, canvas isn't working.</canvas>
+    <img id="myCharacter" src="http://bighappyface.com/Happy%20Face.png"></img>
+    <script>
+    //https://repl.it/IXbY/2
+      var canvas = document.querySelector("#gameCanvas");
+      var ctx = canvas.getContext("2d");
+    
+      var myGamePiece;
+      var img = document.getElementById("myCharacter")
+
+      function startGame() {
+          myGamePiece = new component(30, 30, img, 10, 120, "image");
+      }
+
+      function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        if (type == "image") {
+            ctx.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }
+}
+    </script>
+    
+    
+  </body>
+</html>
