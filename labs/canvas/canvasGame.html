@@ -11,15 +11,16 @@
   </head>
   <body onload="startGame()">
     <script>
-  
+  //defining variables for the game characters (player, obstacle)
       var myGamePiece;
       var myObstacles = [];
   
       function startGame() {
+        //defines player character
         myGamePiece = new component(30, 30, "http://bighappyface.com/Happy%20Face.png", 10, 120, "image");
         myGameArea.start();
       }
-  
+      //creates canvas
       var myGameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
@@ -106,10 +107,13 @@
         }
         myGameArea.clear();
         myGameArea.frameNo += 1;
+        
         if (myGameArea.frameNo == 1 || everyinterval(150)) {
           x = myGameArea.canvas.width;
-          y = myGameArea.canvas.height - 200;
-          myObstacles.push(new component(30, 30, "https://d30y9cdsu7xlg0.cloudfront.net/png/9626-200.png", x, y, "image"));
+          var minHeight = 0;
+          var maxHeight = 200;
+          var height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+          myObstacles.push(new component(30, 30, "https://d30y9cdsu7xlg0.cloudfront.net/png/9626-200.png", x, height, "image"));
         }
         for (i = 0; i < myObstacles.length; i += 1) {
           myObstacles[i].x += -1;
