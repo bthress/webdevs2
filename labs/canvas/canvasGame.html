@@ -13,12 +13,16 @@
     <script>
   //defining variables for the game characters (player, obstacle)
       var myGamePiece;
+      var myBackground;
       var myObstacles = [];
       var myBenefit = [];
+      var myScore = 0;
   
       function startGame() {
         //defines player character
         myGamePiece = new component(30, 30, "http://bighappyface.com/Happy%20Face.png", 10, 120, "image");
+        myBackground = new component(480, 270, "http://chupacdn.s3.amazonaws.com/catalog/product/cache/1/thumbnail/1280x/17f82f742ffe127f42dca9de82fb58b1/m/o/mountain-game-background-8133_imgs_8133.png", 0, 0, "image");
+        myScore = new component("30px", "Comic Sans MS", "black", 280, 40, "text");
         myGameArea.start();
       }
       //creates canvas
@@ -69,6 +73,10 @@
               this.x, 
               this.y,
               this.width, this.height);
+            } else if (this.type == "text") {
+              ctx.font = this.width + " " + this.height;
+              ctx.fillStyle = color;
+              ctx.fillText(this.text, this.x, this.y);
             } else {
               ctx.fillStyle = color;
               ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -78,7 +86,7 @@
           this.x += this.speedX;
           this.y += this.speedY;        
         };
-        this.crashWith = function(otherobj) {
+        this.crashWith = function(otherobj) {2
           var myleft = this.x;
           var myright = this.x + (this.width);
           var mytop = this.y;
@@ -99,6 +107,11 @@
       }
   
       function updateGameArea() {
+        for (i = 0; i < myBenefit.length; i += 1) {
+          if (myGamePiece.crashWith(myBenefit[i])) {
+            myScore += 1;
+          } 
+        }
         var x, y;
         for (i = 0; i < myObstacles.length; i += 1) {
           if (myGamePiece.crashWith(myObstacles[i])) {
@@ -106,15 +119,12 @@
             return;
           } 
         }
-        for (i = 0; i < myBenefit.length; i += 1) {
-          if (myGamePiece.crashWith(myBenefit[i])) {
-            
-            return;
-          } 
-        }
+        
         
         myGameArea.clear();
         myGameArea.frameNo += 1;
+        myBackground.newPos(); 
+        myBackground.update();
         
         
         if (myGameArea.frameNo == 1 || everyinterval(150)) {
@@ -137,8 +147,11 @@
         }
         if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
         if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+        
         myGamePiece.newPos();    
         myGamePiece.update();
+        myScore.text="SCORE: " + "test";
+        myScore.update();
         
       }
     </script>
