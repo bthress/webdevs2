@@ -7,6 +7,9 @@
         border:1px solid #d3d3d3;
         background-color: #f1f1f1;
       }
+      p, li {
+        font-family:Comic Sans MS;
+      }
     </style>
   </head>
   <body onload="startGame()">
@@ -16,21 +19,22 @@
       var myBackground;
       var myObstacles = [];
       var myBenefit = [];
-      var myScore = 0;
+      var myScore;
+      var gameScore = 0;
   
       function startGame() {
         //defines player character
-        myGamePiece = new component(30, 30, "http://bighappyface.com/Happy%20Face.png", 10, 120, "image");
-        myBackground = new component(480, 270, "http://chupacdn.s3.amazonaws.com/catalog/product/cache/1/thumbnail/1280x/17f82f742ffe127f42dca9de82fb58b1/m/o/mountain-game-background-8133_imgs_8133.png", 0, 0, "image");
-        myScore = new component("30px", "Comic Sans MS", "black", 280, 40, "text");
+        myGamePiece = new component(50, 50, "http://bighappyface.com/Happy%20Face.png", 10, 320, "image");
+        myBackground = new component(1280, 640, "http://chupacdn.s3.amazonaws.com/catalog/product/cache/1/thumbnail/1280x/17f82f742ffe127f42dca9de82fb58b1/m/o/mountain-game-background-8133_imgs_8133.png", 0, 0, "image");
+        myScore = new component("30px", "Comic Sans MS", "black", 1000, 40, "text");
         myGameArea.start();
       }
       //creates canvas
       var myGameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
-          this.canvas.width = 480;
-          this.canvas.height = 270;
+          this.canvas.width = 1280;
+          this.canvas.height = 640;
           this.context = this.canvas.getContext("2d");
           document.body.insertBefore(this.canvas, document.body.childNodes[0]);
           this.frameNo = 0;
@@ -109,7 +113,7 @@
       function updateGameArea() {
         for (i = 0; i < myBenefit.length; i += 1) {
           if (myGamePiece.crashWith(myBenefit[i])) {
-            myScore += 1;
+            gameScore += 1;
           } 
         }
         var x, y;
@@ -130,30 +134,37 @@
         if (myGameArea.frameNo == 1 || everyinterval(150)) {
           x = myGameArea.canvas.width;
           var minHeight = 0;
-          var maxHeight = 200;
+          var maxHeight = 640;
           y = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-          myObstacles.push(new component(30, 30, "https://d30y9cdsu7xlg0.cloudfront.net/png/9626-200.png", x, y, "image"));
+          myObstacles.push(new component(50, 50, "https://d30y9cdsu7xlg0.cloudfront.net/png/9626-200.png", x, y, "image"));
           y = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-          myBenefit.push(new component(30, 30, "https://res.cloudinary.com/mp-assets/image/upload/f_auto/v1473272600/iscream/0001848_swirl-candy-microbead-pillow-strawberry-scented.png", x, y, "image"));
+          myBenefit.push(new component(50, 50, "https://res.cloudinary.com/mp-assets/image/upload/f_auto/v1473272600/iscream/0001848_swirl-candy-microbead-pillow-strawberry-scented.png", x, y, "image"));
         }
         for (i = 0; i < myObstacles.length; i += 1) {
-          myObstacles[i].x += -1;
+          myObstacles[i].x += -5;
           myObstacles[i].update();
         }    
         
         for (i = 0; i < myBenefit.length; i += 1) {
-          myBenefit[i].x += -1;
+          myBenefit[i].x += -5;
           myBenefit[i].update();
         }
-        if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
-        if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+        if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -3; }
+        if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 3; }
         
         myGamePiece.newPos();    
         myGamePiece.update();
-        myScore.text="SCORE: " + "test";
+        myScore.text="SCORE: " + gameScore;
         myScore.update();
         
       }
     </script>
+    <p>Here's the game</p>
+    <ul>
+      <li>Press up and down arrow keys to move the character</li>
+      <li>Attempt to avoid the skull + crossbones</li>
+      <li>Go towards the candies as much as possible</li>
+      <li>Try and get a score higher than 1,000!</li>
+    </ul>
   </body>
 </html>
